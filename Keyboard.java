@@ -22,21 +22,22 @@ class Keyboard {
             
             System.out.println("Creating AutoType thread...");
             AutoType thread = new AutoType();
+
+            // Code in AutoType.run() is what is called here.
             thread.start();
         }
 
         // Code to run in new thread.
         public void run() {
             try {
-                // Create Robot object.
+                // Create Robot object. This is used to interact with the keyboard.
                 Robot Robot = new Robot();
     
                 // Convert text to uppercase. The Robot class uses upper case ASCII codes.
                 User.inputText = User.inputText.toUpperCase();
     
                 for (char key : User.inputText.toCharArray()) {
-                    // Implicitly convert current character into keycode.
-                    int keyNum = key;
+                    int keyNum = (int)key;
     
                     // Press keyboard key.
                     Robot.keyPress(keyNum);     // Press key.
@@ -51,6 +52,7 @@ class Keyboard {
         }
     }
     
+    // I DON'T KNOW WHAT THIS WAS SUPPOSED TO DO.
     AutoHold AutoHold = new AutoHold();
     class AutoHold {
         void startAuto() {

@@ -13,6 +13,8 @@ public class Gui {
 
     // Object for accessing auto keyboard methods in Keyboard.java
     Keyboard Keyboard = new Keyboard();
+    // Object for accessing auto clicker methods in Mouse.java
+    Mouse Mouse = new Mouse();
 
     Gui(JFrame frame) {
         frame.add(MainPanel.panel);
@@ -38,10 +40,11 @@ public class Gui {
         // Class panel.
         JPanel panel = new JPanel(new FlowLayout());
 
-        JTextField text         = new JTextField("Text",          TEXTFIELD_LENGTH);
-        JTextField keybind      = new JTextField("Keybind",       TEXTFIELD_LENGTH);
-        JTextField delay        = new JTextField("Delay",         TEXTFIELD_LENGTH);
-        JTextField releaseDelay = new JTextField("Release Delay", TEXTFIELD_LENGTH);
+        final int PADDING = 3;
+        JTextField text         = new JTextField("Text",          TEXTFIELD_LENGTH + PADDING);
+        JTextField keybind      = new JTextField("Keybind",       TEXTFIELD_LENGTH + PADDING);
+        JTextField delay        = new JTextField("Delay (ms)",    TEXTFIELD_LENGTH + PADDING);
+        JTextField releaseDelay = new JTextField("Release Delay", TEXTFIELD_LENGTH + PADDING);
         
         Input() {
             MainPanel.panel.add(panel);
@@ -85,6 +88,26 @@ public class Gui {
 
                     // Start auto typer.
                     Keyboard.AutoType.startAutoThread(text, delay, keybind);
+                }
+            });
+
+            startMouse.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent mouseStartEvent) {
+                    int delay = 5; // Default 5 milliseconds.
+
+                    // If the user does an integer for Input.delay, catch and alert user.
+                    try {
+                        delay = Integer.parseInt(Input.delay.getText());
+                    } catch (Exception delayInputException) {
+                        // Alert user.
+                        JOptionPane.showMessageDialog(null, "Please enter an integer for input delay."); 
+                        
+                        // Exit method before running auto keyboard.
+                        return;
+                    }
+
+                    // Start auto clicker.
+                    Mouse.AutoClick.startAutoThread(/* need to get parameters (clickType) from some radio box here */);
                 }
             });
         }

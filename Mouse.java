@@ -15,8 +15,8 @@ public class Mouse {
     
     AutoClick AutoClick = new AutoClick();
     class AutoClick extends Thread {
-        final int LEFT_CLICK = 1;
-        final int RIGHT_CLICK = 2;
+        final int LEFT_CLICK   = 1;
+        final int RIGHT_CLICK  = 2;
         final int MIDDLE_CLICK = 3;
 
         void leftClick() {
